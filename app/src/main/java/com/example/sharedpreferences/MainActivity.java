@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class MainActivity extends Activity implements OnClickListener {
 
     EditText etText;
-    Button btnSave, btnLoad;
+    Button btnSave, btnLoad, btnCrash;
 
     SharedPreferences sPref;
 
@@ -33,6 +37,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
         btnLoad = (Button) findViewById(R.id.btnLoad);
         btnLoad.setOnClickListener(this);
+
+        btnCrash = (Button) findViewById(R.id.btnCrash);
+        btnCrash.setOnClickListener(this);
     }
 
     @Override
@@ -44,23 +51,45 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.btnLoad:
                 loadText();
                 break;
+            case R.id.btnCrash:
+                crashMe();
+                break;
             default:
                 break;
         }
     }
 
     void saveText() {
+        Log.i("MyTag", "save button clicked");
         sPref = getPreferences(MODE_PRIVATE);
         Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT, etText.getText().toString());
         ed.commit();
         Toast.makeText(this, "Text saved", Toast.LENGTH_SHORT).show();
+        Log.v("MyTag", "verbose log example");
+        Log.d("MyTag", "debug log example");
+        Log.i("MyTag", "info log example");
+        Log.w("MyTag", "warn log example");
+        Log.e("MyTag", "error log example");
     }
 
     void loadText() {
-        sPref = getPreferences(MODE_PRIVATE);
-        String savedText = sPref.getString(SAVED_TEXT, "");
-        etText.setText(savedText);
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
+        Log.i("MyTag", "load button clicked");
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("C:/dc_is_better_then_marvel.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            sPref = getPreferences(MODE_PRIVATE);
+            String savedText = sPref.getString(SAVED_TEXT, "");
+            etText.setText(savedText);
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void crashMe(){
+//        throw new RuntimeException("Some shitty code");
+        Log.i("MyTag", "crash button clicked");
+        int a = 6/0;
     }
 }

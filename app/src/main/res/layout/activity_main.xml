@@ -22,7 +22,7 @@
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#EA1818"
+            android:background="#1853EA"
             android:text="Save"></Button>
 
         <Button
@@ -32,5 +32,14 @@
             android:background="#1ADD82"
             android:text="Load"
             app:backgroundTint="#0BE18B"></Button>
+
+        <Button
+            android:id="@+id/btnCrash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#F44336"
+            android:text="CRASH ME"
+            app:backgroundTint="#F44336"></Button>
+
     </LinearLayout>
 </LinearLayout>
