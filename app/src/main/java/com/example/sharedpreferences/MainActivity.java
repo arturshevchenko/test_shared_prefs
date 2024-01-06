@@ -11,13 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appspector.sdk.AppSpector;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class MainActivity extends Activity implements OnClickListener {
 
     EditText etText;
-    Button btnSave, btnLoad, btnCrash;
+    Button btnSave, btnRead, btnLoad, btnCrash;
 
     SharedPreferences sPref;
 
@@ -28,12 +30,16 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         etText = (EditText) findViewById(R.id.etText);
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
+
+        btnRead = (Button) findViewById(R.id.btnRead);
+        btnRead.setOnClickListener(this);
 
         btnLoad = (Button) findViewById(R.id.btnLoad);
         btnLoad.setOnClickListener(this);
@@ -47,6 +53,9 @@ public class MainActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.btnSave:
                 saveText();
+                break;
+            case R.id.btnRead:
+                readText();
                 break;
             case R.id.btnLoad:
                 loadText();
@@ -73,7 +82,15 @@ public class MainActivity extends Activity implements OnClickListener {
         Log.e("MyTag", "error log example");
     }
 
+    void readText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        String text = sPref.getString("saved_text", "empty text");
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
     void loadText() {
+
+
         Log.i("MyTag", "load button clicked");
         FileInputStream fis = null;
         try {

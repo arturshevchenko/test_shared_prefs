@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
 }
+apply plugin: 'com.android.application'
+    apply plugin: 'com.appspector.sdk'
 
 android {
     compileSdkVersion 30
@@ -8,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.sharedpreferences"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -27,7 +29,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
+repositories {
+    maven {
+        url "https://maven.appspector.com/artifactory/android-sdk"
+    }
+}
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -36,4 +42,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation "com.appspector:android-sdk:1.+"
 }

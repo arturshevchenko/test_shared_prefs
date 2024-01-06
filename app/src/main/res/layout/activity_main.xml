@@ -26,6 +26,13 @@
             android:text="Save"></Button>
 
         <Button
+            android:id="@+id/btnRead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1013EA"
+            android:text="Read"></Button>
+
+        <Button
             android:id="@+id/btnLoad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
